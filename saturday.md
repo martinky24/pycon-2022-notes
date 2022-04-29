@@ -51,3 +51,25 @@ match meal:
 - Pretty powerful, similar to what's in Mathematica but not as wide-spread
 - Would like to learn to use well, but not until 3.10 so will be a while before we use
 - To look at this further, explore implmenting a red/black tree structure using pattern matching `match`/`case` statement
+
+## Python in the Enterprise
+
+- Stabalize what one can
+- Figuring out packaging and deployment
+- Establish "official" documentation
+- Problems
+  - Variations in python versions
+  - Building up infrastructure around C++ (non-Python) tooling
+- **Deployment** comes up again and again
+- All "internal" projects were open to all engineers, to encourage transparency, knowledge sharing, and forward progress
+- People from outside the infrastructure team opening issues/pull requests against infrastructure is encouraged
+- Worked on replacig core infrastructure with python packages
+  - supporting python idioms
+  - optimizing performance
+  - high level of reliability
+- At Bloomberg, Python is the leading contender for new application development
+
+### Personal notes
+
+- Emphasis on investment in infrastructure to make Python work
+- They mention that core infrastructure is important to be well maintained (and carefully implemented). Invest in it. Otherwise it only slows down people downstream. Don't move too fast...
