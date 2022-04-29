@@ -69,7 +69,8 @@ match meal:
   - high level of reliability
 - At Bloomberg, Python is the leading contender for new application development
 
-### Personal notes
+<!-- markdownlint-disable-next-line MD024 -->
+### Personal Notes
 
 - Emphasis on investment in infrastructure to make Python work
 - They mention that core infrastructure is important to be well maintained (and carefully implemented). Invest in it. Otherwise it only slows down people downstream. Don't move too fast...
@@ -103,3 +104,38 @@ Fun how-to on going from cpython source code to interpreted python magic. Not a 
 
 - Generators are a worthy tool to add to the toolbox. Effective use can do a lot to aid in refactoring and minimizing slightly different code duplication
 - `itertools` provides tooling and utilities to further improve the story here
+
+## Effective Protobuf
+
+- Do not write your own serialization code.
+- When considering a (not home-made) serialization scheme, consider:
+  - portable (multi-language, multi-machine) vs. non-portable
+  - dynamic vs. static typed
+  - Textual vs. binary
+- Popular serialization frameworks:
+  - JSON, widely adopted, decent performance, very portable
+  - Pickle, decent performance, not portable
+  - Protobuf
+    - Highly portable (lots of support across popular languages)
+    - Static typing (easy to document serialization)
+    - Great performance (static typing, binary, etc...)
+    - Good backward and forward compatibility
+    - Generally low overhead (1 proto file, the rest is derived from that)
+    - Time tested, very mature
+    - CON: Hard to read by human or without the spec
+    - CON: Doesn't handle messages larger than a few megabytes well
+    - CON: Information with dedicated serialization formats is better handled by the tools optimized for those use cases (matrices, audio, video)
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Personal Notes
+
+- There's not a single use case in our current projects where the network overhead of protobuf matters
+- The talk was mostly about byte-level optimizations that I've not seen affect us at all
+- Interesting stuff, but not for the problems we're solving
+
+## Migrating 3.8million lines of code from Python2 to Python3
+
+<!-- markdownlint-disable-next-line MD024 -->
+### Personal Notes
+
+- Everyone uses pylint, black, flake8, per-commit, etc... Conversationally, everyone generally expects that everyone else uses it too
