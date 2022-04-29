@@ -9,3 +9,19 @@ Main takeaways
   - If something is hard to type, you probably need to refactor it
 
 - I need to focus more on single type outputs of functions, if it's impossible to output something of that type, an exception is reasonable
+
+## Python Oddities
+
+- General notes on variables, mutability, data structures, operators "gotchas"
+- Scobp abuse
+- immutability vs. mutability abuse
+- `is`/`id` "gotchas"
+
+```python
+ x = ([1, 2],)
+x[0] += [3, 4]
+```
+
+## Structural Pattern Matching
+
+- abc
