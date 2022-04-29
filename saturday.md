@@ -80,6 +80,8 @@ Fun how-to on going from cpython source code to interpreted python magic. Not a 
 
 ## [What to do when the Bug is in Someone Else's Code](https://pganssle-talks.github.io/pycon-us-2022-upstream-bugs/#/)
 
+(slides in link above worth looking at)
+
 - There are risks in dependencies - one of them being a bug in someone else's code
 - First goal is to see if you can fix it. Find the source, open a PR. Maybe viable, maybe not. Depends on release cycles, etc...
 - Rewrite/wrap the function yourself. If possible. Technical debt, once its fixed in a new release you don't want to keep using your implementation.
@@ -94,3 +96,10 @@ Fun how-to on going from cpython source code to interpreted python magic. Not a 
   - Maintaining a fork that upsteam doesn't know about
   - No guarantees of future compatability
   - Update all your patches adds friction to the upgrade process
+
+## When to Refactor your Code into Generators
+
+(wasn't focusing well on this talk)
+
+- Generators are a worthy tool to add to the toolbox. Effective use can do a lot to aid in refactoring and minimizing slightly different code duplication
+- `itertools` provides tooling and utilities to further improve the story here
