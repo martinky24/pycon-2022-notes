@@ -73,3 +73,24 @@ match meal:
 
 - Emphasis on investment in infrastructure to make Python work
 - They mention that core infrastructure is important to be well maintained (and carefully implemented). Invest in it. Otherwise it only slows down people downstream. Don't move too fast...
+
+## Implementing a Pipe Operator in Python
+
+Fun how-to on going from cpython source code to interpreted python magic. Not a lot that immediately relates to my day to day, but fun perspective on the language.
+
+## [What to do when the Bug is in Someone Else's Code](https://pganssle-talks.github.io/pycon-us-2022-upstream-bugs/#/)
+
+- There are risks in dependencies - one of them being a bug in someone else's code
+- First goal is to see if you can fix it. Find the source, open a PR. Maybe viable, maybe not. Depends on release cycles, etc...
+- Rewrite/wrap the function yourself. If possible. Technical debt, once its fixed in a new release you don't want to keep using your implementation.
+- Monkey patching. Most functions can be overwritten in some way. Very dangerous if not careful (and even if done carefully), but if required it is a tool for the toolbox.
+  - Scope problems
+  - Lots of room for unintended consequences
+- Store vendor code in your own source, and make the modifications yourself.
+  - hacky
+  - hard to implement
+  - hard to maintain
+- Forking
+  - Maintaining a fork that upsteam doesn't know about
+  - No guarantees of future compatability
+  - Update all your patches adds friction to the upgrade process
