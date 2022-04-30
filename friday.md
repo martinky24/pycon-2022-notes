@@ -133,7 +133,7 @@ Fun how-to on going from cpython source code to interpreted python magic. Not a 
 - The talk was mostly about byte-level optimizations that I've not seen affect us at all
 - Interesting stuff, but not for the problems we're solving
 
-## Migrating 3.8million lines of code from Python2 to Python3
+## Migrating 3.8 million lines of code from Python2 to Python3
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Personal Notes
