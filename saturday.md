@@ -1,5 +1,12 @@
 # Pycon - Saturday, April 30
 
+Major notes:
+
+- `git add -p`
+- "Modern Python" means add some sort of typing
+- Look into `concurrent.futures` with more rigor
+- Put a little bit of effort into understanding how to use asyncio WITHIN Flask
+
 ## Opening Keynote #1: Sara Issaoun
 
 - Event Horizon Telescope team, worked to take a famous image of a black hole
@@ -62,3 +69,40 @@ Basic things that help bring code to a high production level:
   - Tools to make sure that our code has everything it needs to run properly
   - Recommends [`poetry`](https://python-poetry.org/)
   - Recommends [this docker tutorial](https://pythonspeed.com/docker)
+
+## Observability Driven Development
+
+- Think of observability early, not as part of a post-mortem when something goes wrong
+- LOGGING! Look into logging tooling?
+- Good logging:
+  - Write logs for a computer to process, not for a human to read, but make it so a human can read and understand
+  - Put as much info as you can in python logging extra fields
+  - Traceability - Request identifiers should be present in all log messages in order to be able to trace what happened in a particular request
+    - Similar to how our "tasking" logging puts the ID of a task in each logging statement
+  - Business traceability: Customer tracability should exist in all requests in order to measure the experience of a particular customer
+  - Be intentional about log levels
+  - **Personal Note**: Should we move all logging 1 level up in our obstask app? debug->info, run system at info. It's not that much logging?
+  - **Note**: Look into the python logging `extra` keyword
+
+## Moving Editable Installs Forward
+
+- Contentious topic, hard to make forward progress in packaging
+- Editable installs don't work with generated code
+- Editable installs don't work with cython
+- Editable installs don't work with including/excluding specified files very well
+
+## Advanced Control Flow with Threads (as opposed to async)
+
+[READ SLIDES](https://github.com/ajdavis/why-should-async-get-all-the-love)
+
+- Asyncio introduced a lot of cool stuff... but a lot of the stuff they exposed was already possible with threads
+- Threads and asyncio are 2 ways to do concurrency (concurrency is not parallelism)
+- If you REALLY need parallelism, use multi-processing
+- Concurrency: Dealing with events in *partial* order. E.g. waiting for data on many network connections at once
+- Memory: Asyncio more efficient for *huge* (hundreds) number of tasks
+- Speed: Async.io does not speed up code, it just allows concurrency. It often slows down code if i/o isn't a problem
+- Compatability: Asyncio is incompatable with Flask/Django (personal note: I should look into this)
+- Getting threads *right* can be difficult (locks, etc...)
+  - `concurrent.futures` can help make threads less tricky. (Personal note: I should look into this/futures)
+- Threads are not as good at cancellation as asyncio
+- Personal note: I should go through the slides here
