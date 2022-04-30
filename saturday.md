@@ -6,6 +6,7 @@ Major notes:
 - "Modern Python" means add some sort of typing
 - Look into `concurrent.futures` with more rigor
 - Put a little bit of effort into understanding how to use asyncio WITHIN Flask
+- Look into `Austin` and `Scalene` (profiling tools)
 
 ## Opening Keynote #1: Sara Issaoun
 
@@ -106,3 +107,56 @@ Basic things that help bring code to a high production level:
   - `concurrent.futures` can help make threads less tricky. (Personal note: I should look into this/futures)
 - Threads are not as good at cancellation as asyncio
 - Personal note: I should go through the slides here
+
+## Write faster Python! Common performance anti-patterns
+
+[REPO](https://github.com/tonybaloney/anti-patterns)
+
+- Faster code can come from a few big hammers:
+  - Scale out infrastructure (MORE RAM!!)
+  - Rewrite in Cython
+  - Implement in PyPy
+  - Optimize DB/IO
+- Minor version python upgrades (3.11 has ~25% performance gain on 3.10)
+- OR: Optimize existing code
+  - DO:
+    - Create a benchmark, measure existing code
+    - Vary inputs on the benchmark
+    - Isolate changes, 1 at a time, small and atomic
+    - Reproduce impact 1000s of times. 1-off runs don't mean much.
+  - DON'T:
+    - Assume the impact will be the same against python versions
+    - Make performance gain for <10% improvements (that's generally closer to noise)
+  - Use a profiler
+    - tracing profiler
+      - pretty accurate
+      - lots of overhead
+    - sampling profiler
+      - Lower overhead
+    - Profilers:
+      - austin (sampler, low overhead, line-level profiling)
+      - scalene (sampler, low overhead, line-level profiling)
+      - cprofile (buildin, funtion-level profiling)
+  - [`perflint`](https://github.com/tonybaloney/perflint): Alpha tool to perhaps help with performance oriented linting
+
+bad habits:
+
+- Loop invarients
+  - If something is never changed within a loop, don't evaluate it within the loop
+  - This includes dict lookup
+- Missing comprehensions
+  - List comprehensions are faster than for loops if you're taking a list and creating another list, usually
+- Inefficient data structures
+  - NOTE TO SELF: Find his tree on when to use which data structure
+  - Class, Dataclass, Dict, NamedTuple all have significant performance differences depending on the action
+    - Consideration: How much mapping is there from source -> target?
+    - Consideration: What operations are primarily being done? Iterating, Mapping, Sorting, Searching?
+    - Consideration: Is the API important?
+- Don't eagerly iterate iterables
+  - don't wrap an iterable in `list()`
+- Don't use lists if you're not changing the contents
+  - Use a tuple
+- Calling too-many functions
+  - In python there is notable overhead to calling a function
+  - His example for this is informative with `add`, `a()` and `b()`
+  - Avoid "simple utility functions" in a hot loop if necessary. It sucks, but it may save some time. This leads to code repetition, so it's not great. But it can be used as a big hammer.
