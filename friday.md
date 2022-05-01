@@ -1,11 +1,17 @@
 # Pycon - Friday, April 29
 
+Major Notes:
+
+- We should be using typing more. 3 reasons: Typing, correctness (if used with tooling like MyPy), and adding typing drives keeping functions simpler and more correct (in terms of simple, consumable input/output)
+- Structural pattern matching is a really cool and powerful addition worth learning, not available util 3.10 or so
+- Investment in infrastructure is essential to drive software efficiency across the organization, no way around it
+
 ## Opening Keynote
 
 Main takeaways
 
 - I should be actively adding typing to more code I write
-  - Maybe note for mypi integration (yet), but because it's low overhead tooling to help improve self-documenting code
+  - Maybe note for mypy integration (yet), but because it's low overhead tooling to help improve self-documenting code
   - If something is hard to type, you probably need to refactor it
 
 - I need to focus more on single type outputs of functions, if it's impossible to output something of that type, an exception is reasonable
