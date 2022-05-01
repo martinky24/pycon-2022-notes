@@ -1,12 +1,13 @@
 # Pycon - Saturday, April 30
 
-Major notes:
+Major personal notes:
 
 - `git add -p`
 - "Modern Python" means add some sort of typing
 - Look into `concurrent.futures` with more rigor
 - Put a little bit of effort into understanding how to use asyncio WITHIN Flask
 - Look into `Austin` and `Scalene` (profiling tools)
+- Probably lots of opportunities to write more performant python numerical code in my day-to-day
 
 ## Opening Keynote #1: Sara Issaoun
 
