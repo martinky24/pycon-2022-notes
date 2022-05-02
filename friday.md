@@ -2,7 +2,7 @@
 
 Major Notes:
 
-- We should be using typing more. 3 reasons: Typing, correctness (if used with tooling like MyPy), and adding typing drives keeping functions simpler and more correct (in terms of simple, consumable input/output)
+- We should be using typing more. 3 reasons: In-code documentation, correctness (if used with tooling like MyPy), and adding typing drives keeping functions simpler and more correct (in terms of simple, consumable input/output)
 - Structural pattern matching is a really cool and powerful addition worth learning, not available util 3.10 or so
 - Investment in infrastructure is essential to drive software efficiency across the organization, no way around it
 
