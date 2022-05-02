@@ -1,11 +1,5 @@
 # Pycon - Sunday, May 1
 
-Major notes:
-
-- abc
-- def
-- fed
-
 ## Opening Keynote: Python Steering Council
 
 - Unfortunately only 2/5 of the council was present
