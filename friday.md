@@ -11,10 +11,10 @@ Major Notes:
 Main takeaways
 
 - I should be actively adding typing to more code I write
-  - Maybe note for mypy integration (yet), but because it's low overhead tooling to help improve self-documenting code
+  - Maybe not for mypy integration (yet), but because adding typing is low overhead tooling to help improve self-documenting code
   - If something is hard to type, you probably need to refactor it
 
-- I need to focus more on single type outputs of functions, if it's impossible to output something of that type, an exception is reasonable
+- Personal: I need to focus more on "single type" outputs of functions, if it's impossible to output something of that type, an exception is reasonable. Less instances of outputting `None` if something can't happen.
 
 ## Python Oddities
 
