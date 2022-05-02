@@ -19,7 +19,7 @@ Main takeaways
 ## Python Oddities
 
 - General notes on variables, mutability, data structures, operators "gotchas"
-- Scobp abuse
+- Scope abuse
 - immutability vs. mutability abuse
 - `is`/`id` "gotchas"
 
