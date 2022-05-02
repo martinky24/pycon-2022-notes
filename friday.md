@@ -5,6 +5,7 @@ Major Notes:
 - We should be using typing more. 3 reasons: In-code documentation, correctness (if used with tooling like MyPy), and adding typing drives keeping functions simpler and more correct (in terms of simple, consumable input/output)
 - Structural pattern matching is a really cool and powerful addition worth learning, not available util 3.10 or so
 - Investment in infrastructure is essential to drive software efficiency across the organization, no way around it
+- Everyone uses pylint, black, flake8, per-commit, etc... Conversationally, everyone generally expects that everyone else uses it too
 
 ## Opening Keynote
 
@@ -139,9 +140,3 @@ Fun how-to on going from cpython source code to interpreted python magic. Not a 
 - The talk was mostly about byte-level optimizations that I've not seen affect us at all
 - Interesting stuff, but not for the problems we're solving
 
-## Migrating 3.8 million lines of code from Python2 to Python3
-
-<!-- markdownlint-disable-next-line MD024 -->
-### Personal Notes
-
-- Everyone uses pylint, black, flake8, per-commit, etc... Conversationally, everyone generally expects that everyone else uses it too
