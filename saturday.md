@@ -161,3 +161,51 @@ bad habits:
   - In python there is notable overhead to calling a function
   - His example for this is informative with `add`, `a()` and `b()`
   - Avoid "simple utility functions" in a hot loop if necessary. It sucks, but it may save some time. This leads to code repetition, so it's not great. But it can be used as a big hammer.
+
+
+# Ben Davis Notes
+
+## Securing Code with the Python Type System
+- Enfocing again why we need to be using type annotations in python and running type checkers as well. Pyre is an opensource example that Meta uses.
+- **Use `typing_extensions.LiteralString` when working with user input to prevent SQL or shell script injections**
+- `dataclasses-json` can be used for type validation for json inputs via REST APIs. This is a lightweight alternative to `marshmallow` minus serialization (though may be easily handled as well).
+  - Using `@dataclass-json` to define json dataclass will cause runtime errors if the input json does not match the dataclass definition
+- Dataflow analysis can be perfomed with tools like `Pysa` which is opensource and free, and works with flask. Requires type annotations that are correct like using `SQLConnection` for sql connection objects, this will validate dataflows.
+- Other tools `MonkeyType` and `PyreInfer`
+
+## Why Authorization is Hard
+- There are so many authorization schemes and implementing it correclty and at a scalable level is hard.
+- GitHub is a great example of doing it right and simple (though logic is likely not simple)
+  - GitHub makes the UI experience seemless based off authorization without giving a bunch of authorization errors (Ex: Buttons are not rendered on the UI based on authorization levels like one cannot clone or make a PR if not authorized)
+- Look at [OSO Authorization Academy](https://github.com/prod-python/pycon-us-2022#slides) for good tips. This is free!
+- OSO offers 3rd party tools for cloud authorization so your business does not have to implement your own authorization framework if it is going to become complex
+
+## Software Development for Machine Learning in Python
+ - Talk discussed how to productionize machine learning code
+ - Real take away is use of dependency injection and a balance of not over abstracting code into class to hide too many implementation details
+  - Example here is that many ML and Data Scientists are familiar with `numpy`, `pandas`, `keras` so allow the coder to inject classes they are familiar with into classes and functions that perform actions that are more boiler plate
+
+## Making Python better one error message at a time
+- Talked about improvements in python 3.10 and 3.11 for run time error messages
+- More verbose syntax errors like when missing a comma in a dict definition. This will show where the comma is missing as versions before do not
+- Runtime errors are more verbose in 3.11 as the error will show where a Divide by zero error occurred (which variable) same with `NoneType` being accessed, it will show what variable is `None`
+
+## Write Docs Devs Love: Ten Tips To Level Up Your Tech Writing
+- Always start document with a concise summary fo the project and what it is/does
+- Low reading level
+- Write like people talke (Inclusive language)
+- Avoid Jargon if possible (when using scientific terms, are there ways to explain it at a lower level without Jargon)
+- Define Acronyms
+- Use meaningful examples from code when showing what a function does or how to use your code (show don't tell)
+- Include everything (all dependencies to run your code)
+- Avoid sending readers away from your documentation with links. If you do make sure they have to come back (ex: put prerequisites at the top of the docs to they have to come back to read your docs)
+- Make it scannable (good headers)
+  - use consistent style
+- Verify your documentation! Is it correct are the code examples correct
+
+## Writing performant code for modern Python interpreters
+- Mainly discussed and compared the differences in performance with new python efforts (CPython v3.11) and other interpreters like `Pyston`
+- Tips for more performant code in python >= 3.11
+  - Don't reassign global variables, make them mutable objects
+- Don't reassign class level attributes (ie: `Class.some_attr = 1`). Is different than changing an instance of a classes attributes (which is fine we do it all the time)
+- Don't cache methods to improve speed if avoidable, particularly for built-ins (ie: funct = list.append)
