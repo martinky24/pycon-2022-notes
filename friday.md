@@ -2,7 +2,11 @@
 
 Major Notes:
 
-- We should be using typing more. 3 reasons: In-code documentation, correctness (if used with tooling like MyPy), and adding typing drives keeping functions simpler and more correct (in terms of simple, consumable input/output)
+- We should be using typing more. 4 reasons: 
+  1. In-code documentation
+  2. correctness (if used with tooling like MyPy)
+  3. adding typing drives keeping functions simpler and more correct (in terms of simple, consumable input/output)
+  4. Can ensure code quality and security, correct types can cause runtime errors or raise errors during linting to protect from common security vulnerabilities
 - Structural pattern matching is a really cool and powerful addition worth learning, not available util 3.10 or so
 - Investment in infrastructure is essential to drive software efficiency across the organization, no way around it
 - Everyone uses pylint, black, flake8, per-commit, etc... Conversationally, everyone generally expects that everyone else uses it too
@@ -140,3 +144,41 @@ Fun how-to on going from cpython source code to interpreted python magic. Not a 
 - The talk was mostly about byte-level optimizations that I've not seen affect us at all
 - Interesting stuff, but not for the problems we're solving
 
+
+# Ben Davis Notes
+
+## Best Practices for Continuous Integration in Python
+ - Mostly information that our DevOps team would already know.
+ - Interesting point to ensure that unit tests are ran in parallel with some tools to do so (pytest has extensions for this). Ensure that tests are loosely coupled so parallel execution is possible
+ - Should focus on better mocking and stubbing for better intentional code coverage and functional coverage
+ - Finally, a suggestion is to order tests by likelyhood of failure, so the CI pipeline does not spend more time than necessary running tests before failing
+
+## Finding penguins with a snake: Linux features for a Python user
+- Python stdlib has many linux APIs to command line tools many linux developers are familiar with and should be something to consider during development in a linux environment (ex: `filecmp` can easily compare the contents of two files or directories)
+- `socket.socketpair` can be useful for a simple interprocess communication model, for rapid prototyping or for not needing to build out network apis (REST gRPC) nor using `multiprocessing.Queue` to send data between processes
+- Kyle has already experimented with it but the talker is a contributer to `memray` and pushed it, definitly going to be a useful tool and should be ran against all code to verify memory consumption or determine memory leaks if interfacing with Cython (or similar C library frameworks)
+
+## Building a binary extension
+- Hard to follow this talk, a lot to digest. Mainly discussed a subset of tools to use to create a binary extension in python from a C++ library that can be published via CI and make it compatible with all OS/ hardware architectures.
+- Mentioned `numba` as an easy way to squeeze out some perfomance from python as this is a JIT compiler for python
+- `mypyC` is similar to `Cython` but apperently faster (no metrics proving this but the talker is a PhD and researches computational perfomance and optimization)
+- `CMake` in python provides an API to compile C code rather than having to run `make` via a command line call
+- He mentioned `cibuildwheel` or `PyPI` for pushing wheels to an wheel repo (note for myself to look into details for this process)
+
+## Understanding attributes (Or: They're not nearly as boring as you think!)
+- Not really anything interesting that you couldn't just google.
+- Basically discussing how python stores everything in attributes, ex: python class functions are attributes as well
+
+## If an asyncio.Task fails in the woods and nobody is around to see it, does it still page you at 3am.
+- Note to self to look into `asyncio` for parallel execution via a task executor pattern
+- Discussed best practices for interfacing with asyncio tasks and not killing the thread pool
+  - Use `AsyncContextManager` for setup and teardown of tasks so they don't persist after function completion or program errors
+  - Use `asyncio.run()` to execute a task, and use caution when interfacing with the eventloop directly as a lot of incorrect code can be written unless you know what you are doing
+
+## Implementing shared functionality using Middleware
+- [slides](https://echorand.me/talks)
+- In Flask we can use `before_request` and `after_request` functions to implement middleware in Flask (good way to time execution of an endpoint as well)
+- Middleware can easily be set for WSGI applications that have a `wsgi_app` interface using a wrapper pattern. Example: `app.wsgi_app = OpenTelemetry(app.app_wsgi)`
+- Middleware can also be used for caching expensive calculations on the backend server between requests.
+- FastAPI implements ASGI (Aysnc) hence why FastAPI can utilize `asyncio`
+- WSGI and ASGI compliant python webframe works can inject WSGI middleware such that middleware can be written and shared between projects that are framework independent (ex: we can write common middleware that can be shared between flask and fastapi applications)

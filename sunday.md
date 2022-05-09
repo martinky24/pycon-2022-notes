@@ -46,3 +46,16 @@
   - Dividing into each of those there is further room for modularity
 
 Talk got less interesting and hard to pay attention to as it went on.
+
+# Ben Davis Notes
+
+## Getting Started with Statically Typed Programming in Python 3.10
+- Use `Iterable` rather than say `list` when type annotating, this will allow for any iterable type and not force a user of a function to only pass a list.
+  - `Collection` is another generic type to accept when type annotating
+- Just consider what is best for reuse, one could for a `list[str]` but accepting an `Iterable[str]` is likely better design
+- Union syntax can be used for accepting or returning multiple types when type annotating 
+  - `def add(x: int | float, y: int | float) -> int | float:`
+  - 3.9 requires `types.Union[int,float]`
+- Rather than returning `None` make this scenario an exception with in a function, make what is returned from a function strict, use exceptions for error cases
+- Type annotation for passing function pointers should be `Callable`
+- In 3.10 you can use `TypeAlias` to create your own types for readablitiy, say two lists could be list of strings, we can type alias to say on list is a list of emails strings, the other a list of address strings
